@@ -2,7 +2,8 @@ import { Component, signal } from '@angular/core';
 import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
-import { environment } from '../../../environments/environment';
+// import { environment } from '../../../environments/environment';
+import { CONFIG } from '../../config/api.config';
 // ...
 
 // Definimos una interfaz para la esytructura de un mensaje
@@ -42,7 +43,8 @@ export class CookiesChat {
   chatHistory = signal<ChatMessage[]>([]);
 
   constructor() {
-    this.genAI = new GoogleGenerativeAI(environment.geminiApiKey);
+    // this.genAI = new GoogleGenerativeAI(environment.geminiApiKey);
+    this.genAI = new GoogleGenerativeAI(CONFIG.getGeminiApiKey());
     this.model = this.genAI.getGenerativeModel({
       model: 'gemini-2.5-pro',
       generationConfig: {
