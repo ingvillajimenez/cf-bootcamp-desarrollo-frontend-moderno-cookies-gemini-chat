@@ -24,6 +24,8 @@ interface ChatMessage {
   styleUrl: './cookies-chat.css',
 })
 export class CookiesChat {
+  API_KEY = CONFIG.getGeminiApiKey();
+
   private genAI: GoogleGenerativeAI;
   private model: any; // GenerativeModel
   private chat: any; // ChatSession
@@ -44,7 +46,7 @@ export class CookiesChat {
 
   constructor() {
     // this.genAI = new GoogleGenerativeAI(environment.geminiApiKey);
-    this.genAI = new GoogleGenerativeAI(CONFIG.getGeminiApiKey());
+    this.genAI = new GoogleGenerativeAI(this.API_KEY);
     this.model = this.genAI.getGenerativeModel({
       model: 'gemini-2.5-pro',
       generationConfig: {
