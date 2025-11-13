@@ -1,0 +1,42 @@
+<div class="chat-container">
+  <!-- ... chat-body ... -->
+  <div class="chat-body">
+    <!-- Mensajes iniciales de bienvenida (opcional) -->
+    <div class="message bot">
+      <p>Hola! Soy un experto en galletas 🍪. Que te gustaria hornear hoy?</p>
+    </div>
+
+    <!-- 
+      Bucle @for: Itera sobre el signal chatHistory().
+      Observa los parentesis! Leemos el valor del signal.
+     -->
+    @for (item of chatHistory(); track $index) {
+    <div class="message" [class.user]="item.role === 'user'" [class.bot]="item.role === 'model'">
+      <!-- Usamos [innerHTML] para renderizar el formato (<b>, <li>) de Gemini -->
+      <p [innerHTML]="item.parts"></p>
+    </div>
+    }
+
+    <!-- 
+      Condicional @if: Muestra "Cargando..." si el signal loading() es true.
+    -->
+    @if (loading()) {
+    <div class="message bot">
+      <p>Escribiendo...</p>
+      <!-- Un 'loading' mas bonito -->
+    </div>
+    }
+  </div>
+
+  <div class="chat-footer">
+    <!-- ... (nuestro formulario reactivo) ... -->
+    <input
+      type="text"
+      placeholder="Escribe tu pregunta sobre galletas..."
+      [formControl]="messageControl"
+      (keyup.enter)="handleSubmit()"
+    />
+
+    <button (click)="handleSubmit()" [disabled]="messageControl.invalid">Send</button>
+  </div>
+</div>
