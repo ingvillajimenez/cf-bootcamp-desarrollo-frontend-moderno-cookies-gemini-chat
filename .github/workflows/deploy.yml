@@ -40,7 +40,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./build
+          path: ./dist/cookies-gemini-chat
 
       - name: Deploy to GitHub Pages
         id: deployment
